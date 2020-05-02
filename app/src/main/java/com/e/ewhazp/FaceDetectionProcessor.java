@@ -21,11 +21,11 @@ public class FaceDetectionProcessor extends VisionProcessorBase<List<FirebaseVis
     private static final String TAG = "FaceDetectionProcessor";
 
     private final FirebaseVisionFaceDetector detector;
-
+    //옵션 컨투어
     public FaceDetectionProcessor() {
         FirebaseVisionFaceDetectorOptions options =
                 new FirebaseVisionFaceDetectorOptions.Builder()
-                        .setContourMode(FirebaseVisionFaceDetectorOptions.ALL_CONTOURS)
+                        .setContourMode(FirebaseVisionFaceDetectorOptions.ALL_CONTOURS)//@@@@@@@
                         .build();
 
         detector = FirebaseVision.getInstance().getVisionFaceDetector(options);

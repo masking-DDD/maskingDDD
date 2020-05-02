@@ -4,11 +4,13 @@ import android.annotation.SuppressLint;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 
 import com.e.ewhazp.facedetection.GraphicOverlay;
 import com.e.ewhazp.facedetection.GraphicOverlay.Graphic;
 import com.google.android.gms.vision.CameraSource;
 import com.google.firebase.ml.vision.face.FirebaseVisionFace;
+import com.google.firebase.ml.vision.face.FirebaseVisionFaceContour;
 
 /**
  * Graphic instance for rendering face position, orientation, and landmarks within an associated
@@ -76,23 +78,51 @@ public class FaceGraphic extends Graphic {
         float x = translateX(face.getBoundingBox().centerX());
         float y = translateY(face.getBoundingBox().centerY());
         canvas.drawCircle(x, y, FACE_POSITION_RADIUS, facePositionPaint);
-        canvas.drawText("id: " + face.getTrackingId(), x + ID_X_OFFSET, y + ID_Y_OFFSET, idPaint);
-        canvas.drawText(
-                "happiness: " + String.format("%.2f", face.getSmilingProbability()),
-                x + ID_X_OFFSET * 3,
-                y - ID_Y_OFFSET,
-                idPaint);
+//        canvas.drawText("id: " + face.getTrackingId(), x + ID_X_OFFSET, y + ID_Y_OFFSET, idPaint);
+//        canvas.drawText(
+//                "happiness: " + String.format("%.2f", face.getSmilingProbability()),
+//                x + ID_X_OFFSET * 3,
+//                y - ID_Y_OFFSET,
+//                idPaint);
         if (facing == CameraSource.CAMERA_FACING_FRONT) {
-            canvas.drawText(
-                    "right eye: " + String.format("%.2f", face.getRightEyeOpenProbability()),
-                    x - ID_X_OFFSET,
-                    y,
-                    idPaint);
-            canvas.drawText(
-                    "left eye: " + String.format("%.2f", face.getLeftEyeOpenProbability()),
-                    x + ID_X_OFFSET * 6,
-                    y,
-                    idPaint);
+//            canvas.drawText(
+//                    "right eye: " + String.format("%.2f", face.getRightEyeOpenProbability()),
+//                    x - ID_X_OFFSET,
+//                    y,
+//                    idPaint);
+//            canvas.drawText(
+//                    "left eye: " + String.format("%.2f", face.getLeftEyeOpenProbability()),
+//                    x + ID_X_OFFSET * 6,
+//                    y,
+//                    idPaint);
+
+            //@@@@@@@@@@@@@@@@@@@
+            FirebaseVisionFaceContour contour1 = face.getContour(FirebaseVisionFaceContour.LEFT_EYE);
+            for (com.google.firebase.ml.vision.common.FirebaseVisionPoint point : contour1.getPoints()) {
+                float px = translateX(point.getX());
+                float py = translateY(point.getY());
+                canvas.drawCircle(px, py, FACE_POSITION_RADIUS, facePositionPaint);
+                Log.d("lefteye getpoints", String.valueOf(contour1.getPoints()));
+            }
+            FirebaseVisionFaceContour contour2 = face.getContour(FirebaseVisionFaceContour.RIGHT_EYE);
+            for (com.google.firebase.ml.vision.common.FirebaseVisionPoint point : contour2.getPoints()) {
+                float px = translateX(point.getX());
+                float py = translateY(point.getY());
+                canvas.drawCircle(px, py, FACE_POSITION_RADIUS, facePositionPaint);
+            }
+            FirebaseVisionFaceContour contour3 = face.getContour(FirebaseVisionFaceContour.UPPER_LIP_BOTTOM);
+            for (com.google.firebase.ml.vision.common.FirebaseVisionPoint point : contour3.getPoints()) {
+                float px = translateX(point.getX());
+                float py = translateY(point.getY());
+                canvas.drawCircle(px, py, FACE_POSITION_RADIUS, facePositionPaint);
+            }
+            FirebaseVisionFaceContour contour4 = face.getContour(FirebaseVisionFaceContour.LOWER_LIP_TOP);
+            for (com.google.firebase.ml.vision.common.FirebaseVisionPoint point : contour4.getPoints()) {
+                float px = translateX(point.getX());
+                float py = translateY(point.getY());
+                canvas.drawCircle(px, py, FACE_POSITION_RADIUS, facePositionPaint);
+            }
+            //@@@@@@@@@@@@@@@@@@@@@@@@@@@
         } else {
             canvas.drawText(
                     "left eye: " + String.format("%.2f", face.getLeftEyeOpenProbability()),

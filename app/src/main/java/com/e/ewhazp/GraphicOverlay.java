@@ -1,4 +1,4 @@
-package com.e.ewhazp.facedetection;
+package com.e.ewhazp;
 
 import android.content.Context;
 import android.graphics.Canvas;

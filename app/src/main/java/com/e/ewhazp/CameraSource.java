@@ -16,7 +16,6 @@ import android.view.WindowManager;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresPermission;
 
-import com.e.ewhazp.facedetection.GraphicOverlay;
 import com.google.android.gms.common.images.Size;
 
 import java.io.IOException;

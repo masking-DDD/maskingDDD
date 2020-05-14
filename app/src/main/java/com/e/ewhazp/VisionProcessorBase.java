@@ -1,13 +1,7 @@
 package com.e.ewhazp;
 
-import android.graphics.Bitmap;
-import android.media.Image;
-import android.os.Build;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 
-import com.e.ewhazp.facedetection.GraphicOverlay;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -52,35 +46,11 @@ public abstract class VisionProcessorBase<T> implements VisionImageProcessor {
                 FirebaseVisionImage.fromByteBuffer(data, metadata), frameMetadata, graphicOverlay);
     }
 
-    // Bitmap version
-    @Override
-    public void process(Bitmap bitmap, final GraphicOverlay
-            graphicOverlay) {
-        if (shouldThrottle.get()) {
-            return;
-        }
-        detectInVisionImage(FirebaseVisionImage.fromBitmap(bitmap), null, graphicOverlay);
-    }
-
     /**
      * Detects feature from given media.Image
      *
      * @return created FirebaseVisionImage
      */
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public void process(Image image, int rotation, final GraphicOverlay graphicOverlay) {
-        if (shouldThrottle.get()) {
-            return;
-        }
-        // This is for overlay display's usage
-        FrameMetadata frameMetadata =
-                new FrameMetadata.Builder().setWidth(image.getWidth()).setHeight(image.getHeight
-                        ()).build();
-        FirebaseVisionImage fbVisionImage =
-                FirebaseVisionImage.fromMediaImage(image, rotation);
-        detectInVisionImage(fbVisionImage, frameMetadata, graphicOverlay);
-    }
-
     private void detectInVisionImage(
             FirebaseVisionImage image,
             final FrameMetadata metadata,

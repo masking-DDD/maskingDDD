@@ -17,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.e.ewhazp.facedetection.GraphicOverlay;
 import com.google.android.gms.common.annotation.KeepName;
 import com.google.firebase.samples.apps.mlkit.R;
 
@@ -33,10 +32,10 @@ public final class LivePreviewActivity extends AppCompatActivity
         OnItemSelectedListener,
         CompoundButton.OnCheckedChangeListener {
     private static final String FACE_DETECTION = "Face Detection";
-    private static final String TEXT_DETECTION = "Text Detection";
-    private static final String BARCODE_DETECTION = "Barcode Detection";
-    private static final String IMAGE_LABEL_DETECTION = "Label Detection";
-    private static final String CLASSIFICATION = "Classification";
+//    private static final String TEXT_DETECTION = "Text Detection";
+//    private static final String BARCODE_DETECTION = "Barcode Detection";
+//    private static final String IMAGE_LABEL_DETECTION = "Label Detection";
+//    private static final String CLASSIFICATION = "Classification";
     private static final String TAG = "LivePreviewActivity";
     private static final int PERMISSION_REQUESTS = 1;
 
@@ -125,13 +124,7 @@ public final class LivePreviewActivity extends AppCompatActivity
         Log.i(TAG, "Using Face Detector Processor");
         cameraSource.setMachineLearningFrameProcessor(new FaceDetectionProcessor());
 
-//        switch (model) {
-//            default:
-//
-//                break;
-//        }
     }
-
     /**
      * Starts or restarts the camera source, if it exists. If the camera source doesn't exist yet
      * (e.g., because onResume was called before the camera source was created), this will be called

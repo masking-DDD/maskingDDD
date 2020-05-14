@@ -4,7 +4,6 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.e.ewhazp.facedetection.GraphicOverlay;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
@@ -26,6 +25,7 @@ public class FaceDetectionProcessor extends VisionProcessorBase<List<FirebaseVis
         FirebaseVisionFaceDetectorOptions options =
                 new FirebaseVisionFaceDetectorOptions.Builder()
                         .setContourMode(FirebaseVisionFaceDetectorOptions.ALL_CONTOURS)//@@@@@@@
+                        .setClassificationMode(FirebaseVisionFaceDetectorOptions.ALL_CLASSIFICATIONS)
                         .build();
 
         detector = FirebaseVision.getInstance().getVisionFaceDetector(options);

@@ -6,17 +6,22 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
 
-import com.e.ewhazp.facedetection.GraphicOverlay;
-import com.e.ewhazp.facedetection.GraphicOverlay.Graphic;
+import com.e.ewhazp.GraphicOverlay.Graphic;
 import com.google.android.gms.vision.CameraSource;
+import com.google.firebase.ml.vision.common.FirebaseVisionPoint;
 import com.google.firebase.ml.vision.face.FirebaseVisionFace;
 import com.google.firebase.ml.vision.face.FirebaseVisionFaceContour;
+
+import java.util.List;
+
 
 /**
  * Graphic instance for rendering face position, orientation, and landmarks within an associated
  * graphic overlay view.
  */
 public class FaceGraphic extends Graphic {
+    private static final String TAG = "FaceGraphic";
+
     private static final float FACE_POSITION_RADIUS = 10.0f;
     private static final float ID_TEXT_SIZE = 40.0f;
     private static final float ID_Y_OFFSET = 50.0f;
@@ -33,8 +38,28 @@ public class FaceGraphic extends Graphic {
     private final Paint facePositionPaint;
     private final Paint idPaint;
     private final Paint boxPaint;
+    private final Paint textPaint;
 
     private volatile FirebaseVisionFace firebaseVisionFace;
+    double EARValue;
+
+    double getDistance(double x1, double y1, double x2, double y2){
+        return Math.sqrt(Math.pow(Math.abs(x1-x2), 2) + Math.pow(Math.abs(y1-y2), 2));
+    }
+    //양쪽 눈의 EAR값 평균 계산
+    private double CalEARMean(List<FirebaseVisionPoint> leftEyePointsList, List<FirebaseVisionPoint> rightEyePointsList) {
+
+        double lp0p8 = getDistance(leftEyePointsList.get(0).getX(), leftEyePointsList.get(0).getY(), leftEyePointsList.get(8).getX(), leftEyePointsList.get(8).getY());
+        double lp3p13 = getDistance(leftEyePointsList.get(3).getX(), leftEyePointsList.get(3).getY(), leftEyePointsList.get(13).getX(), leftEyePointsList.get(13).getY());
+        double lp5p11 = getDistance(leftEyePointsList.get(5).getX(), leftEyePointsList.get(5).getY(), leftEyePointsList.get(11).getX(), leftEyePointsList.get(11).getY());
+        double rp0p8 = getDistance(rightEyePointsList.get(0).getX(), rightEyePointsList.get(0).getY(), rightEyePointsList.get(8).getX(), rightEyePointsList.get(8).getY());
+        double rp3p13 = getDistance(rightEyePointsList.get(3).getX(), rightEyePointsList.get(3).getY(), rightEyePointsList.get(13).getX(), rightEyePointsList.get(13).getY());
+        double rp5p11 = getDistance(rightEyePointsList.get(5).getX(), rightEyePointsList.get(5).getY(), rightEyePointsList.get(11).getX(), rightEyePointsList.get(11).getY());
+
+        double LeftEyeEAR = (lp3p13+lp5p11)/(2*lp0p8);
+        double RightEyeEAR = (rp3p13+rp5p11)/(2*rp0p8);
+        return EARValue = (LeftEyeEAR+RightEyeEAR)/2;
+    }
 
     public FaceGraphic(GraphicOverlay overlay) {
         super(overlay);
@@ -44,6 +69,11 @@ public class FaceGraphic extends Graphic {
 
         facePositionPaint = new Paint();
         facePositionPaint.setColor(selectedColor);
+
+        textPaint = new Paint();
+        textPaint.setColor(Color.WHITE);
+        textPaint.setTextSize(50f);
+
 
         idPaint = new Paint();
         idPaint.setColor(selectedColor);
@@ -78,62 +108,74 @@ public class FaceGraphic extends Graphic {
         float x = translateX(face.getBoundingBox().centerX());
         float y = translateY(face.getBoundingBox().centerY());
         canvas.drawCircle(x, y, FACE_POSITION_RADIUS, facePositionPaint);
-//        canvas.drawText("id: " + face.getTrackingId(), x + ID_X_OFFSET, y + ID_Y_OFFSET, idPaint);
-//        canvas.drawText(
-//                "happiness: " + String.format("%.2f", face.getSmilingProbability()),
-//                x + ID_X_OFFSET * 3,
-//                y - ID_Y_OFFSET,
-//                idPaint);
-        if (facing == CameraSource.CAMERA_FACING_FRONT) {
-//            canvas.drawText(
-//                    "right eye: " + String.format("%.2f", face.getRightEyeOpenProbability()),
-//                    x - ID_X_OFFSET,
-//                    y,
-//                    idPaint);
-//            canvas.drawText(
-//                    "left eye: " + String.format("%.2f", face.getLeftEyeOpenProbability()),
-//                    x + ID_X_OFFSET * 6,
-//                    y,
-//                    idPaint);
 
-            //@@@@@@@@@@@@@@@@@@@
-            FirebaseVisionFaceContour contour1 = face.getContour(FirebaseVisionFaceContour.LEFT_EYE);
-            for (com.google.firebase.ml.vision.common.FirebaseVisionPoint point : contour1.getPoints()) {
+        if (facing == CameraSource.CAMERA_FACING_FRONT) {
+            //윤곽선에 점 찍기
+            FirebaseVisionFaceContour lefteye = face.getContour(FirebaseVisionFaceContour.LEFT_EYE);
+            List<FirebaseVisionPoint> lefteyeList = lefteye.getPoints();
+            for (com.google.firebase.ml.vision.common.FirebaseVisionPoint point : lefteye.getPoints()) {
                 float px = translateX(point.getX());
                 float py = translateY(point.getY());
                 canvas.drawCircle(px, py, FACE_POSITION_RADIUS, facePositionPaint);
-                Log.d("lefteye getpoints", String.valueOf(contour1.getPoints()));
+                Log.d("lefteye getpoints", String.valueOf(lefteye.getPoints()));
             }
-            FirebaseVisionFaceContour contour2 = face.getContour(FirebaseVisionFaceContour.RIGHT_EYE);
-            for (com.google.firebase.ml.vision.common.FirebaseVisionPoint point : contour2.getPoints()) {
-                float px = translateX(point.getX());
-                float py = translateY(point.getY());
-                canvas.drawCircle(px, py, FACE_POSITION_RADIUS, facePositionPaint);
-            }
-            FirebaseVisionFaceContour contour3 = face.getContour(FirebaseVisionFaceContour.UPPER_LIP_BOTTOM);
-            for (com.google.firebase.ml.vision.common.FirebaseVisionPoint point : contour3.getPoints()) {
-                float px = translateX(point.getX());
-                float py = translateY(point.getY());
-                canvas.drawCircle(px, py, FACE_POSITION_RADIUS, facePositionPaint);
-            }
-            FirebaseVisionFaceContour contour4 = face.getContour(FirebaseVisionFaceContour.LOWER_LIP_TOP);
-            for (com.google.firebase.ml.vision.common.FirebaseVisionPoint point : contour4.getPoints()) {
+            FirebaseVisionFaceContour righteye = face.getContour(FirebaseVisionFaceContour.RIGHT_EYE);
+            List<FirebaseVisionPoint> righteyeList = righteye.getPoints();
+
+            for (com.google.firebase.ml.vision.common.FirebaseVisionPoint point : righteye.getPoints()) {
                 float px = translateX(point.getX());
                 float py = translateY(point.getY());
                 canvas.drawCircle(px, py, FACE_POSITION_RADIUS, facePositionPaint);
             }
-            //@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        } else {
-            canvas.drawText(
-                    "left eye: " + String.format("%.2f", face.getLeftEyeOpenProbability()),
-                    x - ID_X_OFFSET,
-                    y,
-                    idPaint);
-            canvas.drawText(
-                    "right eye: " + String.format("%.2f", face.getRightEyeOpenProbability()),
-                    x + ID_X_OFFSET * 6,
-                    y,
-                    idPaint);
+//            FirebaseVisionFaceContour upperlip_bottom = face.getContour(FirebaseVisionFaceContour.UPPER_LIP_BOTTOM);
+//////            for (com.google.firebase.ml.vision.common.FirebaseVisionPoint point : upperlip_bottom.getPoints()) {
+//////                float px = translateX(point.getX());
+//////                float py = translateY(point.getY());
+//////                canvas.drawCircle(px, py, FACE_POSITION_RADIUS, facePositionPaint);
+//////            }
+//////            FirebaseVisionFaceContour lowerlip_top = face.getContour(FirebaseVisionFaceContour.LOWER_LIP_TOP);
+//////            for (com.google.firebase.ml.vision.common.FirebaseVisionPoint point : lowerlip_top.getPoints()) {
+//////                float px = translateX(point.getX());
+//////                float py = translateY(point.getY());
+//////                canvas.drawCircle(px, py, FACE_POSITION_RADIUS, facePositionPaint);
+//////            }
+            //EAR 계산
+            double EAR = CalEARMean(lefteyeList, righteyeList);
+            canvas.drawText("EAR Mean is: "+ EAR, x, y, textPaint);
+            if(EAR <= 0.24) {
+                Log.wtf(TAG,"EAR Mean is: "+ CalEARMean(lefteyeList, righteyeList));
+                Log.wtf(TAG,"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"); //drowsiness alart!
+            }
+
+            //canvas.drawText("ML Kit value is: "+(face.getRightEyeOpenProbability()+face.getLeftEyeOpenProbability())/2, x,y-50,textPaint);
+           // Log.wtf(TAG,"ML Kit value is: "+(face.getRightEyeOpenProbability()+face.getLeftEyeOpenProbability())/2);
+        }
+        else {
+            FirebaseVisionFaceContour lefteye = face.getContour(FirebaseVisionFaceContour.LEFT_EYE);
+            for (com.google.firebase.ml.vision.common.FirebaseVisionPoint point : lefteye.getPoints()) {
+                float px = translateX(point.getX());
+                float py = translateY(point.getY());
+                canvas.drawCircle(px, py, FACE_POSITION_RADIUS, facePositionPaint);
+                Log.d("lefteye getpoints", String.valueOf(lefteye.getPoints()));
+            }
+            FirebaseVisionFaceContour righteye = face.getContour(FirebaseVisionFaceContour.RIGHT_EYE);
+            for (com.google.firebase.ml.vision.common.FirebaseVisionPoint point : righteye.getPoints()) {
+                float px = translateX(point.getX());
+                float py = translateY(point.getY());
+                canvas.drawCircle(px, py, FACE_POSITION_RADIUS, facePositionPaint);
+            }
+            FirebaseVisionFaceContour upperlip_bottom = face.getContour(FirebaseVisionFaceContour.UPPER_LIP_BOTTOM);
+            for (com.google.firebase.ml.vision.common.FirebaseVisionPoint point : upperlip_bottom.getPoints()) {
+                float px = translateX(point.getX());
+                float py = translateY(point.getY());
+                canvas.drawCircle(px, py, FACE_POSITION_RADIUS, facePositionPaint);
+            }
+            FirebaseVisionFaceContour lowerlip_top = face.getContour(FirebaseVisionFaceContour.LOWER_LIP_TOP);
+            for (com.google.firebase.ml.vision.common.FirebaseVisionPoint point : lowerlip_top.getPoints()) {
+                float px = translateX(point.getX());
+                float py = translateY(point.getY());
+                canvas.drawCircle(px, py, FACE_POSITION_RADIUS, facePositionPaint);
+            }
         }
 
         // Draws a bounding box around the face.

@@ -1,0 +1,4 @@
+#Thu May 14 16:47:58 KST 2020
+base.0=C\:\\Users\\koko111\\Desktop\\ttsexample\\app\\build\\intermediates\\dex\\debug\\out\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

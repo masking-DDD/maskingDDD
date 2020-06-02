@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/fireTopLayout"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000"
+        android:keepScreenOn="true">
+
+        <TextView
+            android:id="@+id/closedearGuidetext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#000"
+            android:text="@string/closedearGuide"
+            android:fontFamily="@font/kyobo_handwriting_2019"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            />
+
+        <com.e.ewhazp.preprocessing.CameraSourcePreview
+            android:id="@+id/firePreview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/closedearGuidetext"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true">
+
+            <com.e.ewhazp.preprocessing.GraphicOverlay
+                android:id="@+id/fireFaceOverlay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true" />
+
+        </com.e.ewhazp.preprocessing.CameraSourcePreview>
+
+        <LinearLayout
+            android:id="@+id/control"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_toEndOf="@id/firePreview"
+            android:layout_toRightOf="@id/firePreview"
+            >
+
+            <Button
+                android:id="@+id/Again"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/again"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                android:fontFamily="@font/kyobo_handwriting_2019"
+                android:background="#00462A"
+                android:visibility="visible"
+                tools:ignore="RtlHardcoded" />
+
+            <Button
+                android:id="@+id/Confirm"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                android:fontFamily="@font/kyobo_handwriting_2019"
+                android:background="#00462A"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/confirm" />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

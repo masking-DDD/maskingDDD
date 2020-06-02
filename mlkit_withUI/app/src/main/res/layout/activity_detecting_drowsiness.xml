@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/fireTopLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000"
+        android:keepScreenOn="true"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="-145dp">
+
+        <TextView
+            android:id="@+id/DDT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="#00000000"
+            android:text="@string/detectingdrowsinesstext"
+            android:fontFamily="@font/kyobo_handwriting_2019"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+
+        <com.e.ewhazp.preprocessing.CameraSourcePreview
+
+            android:id="@+id/firePreview"
+            android:layout_below="@id/DDT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true">
+
+            <com.e.ewhazp.preprocessing.GraphicOverlay
+                android:id="@+id/fireFaceOverlay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true" />
+        </com.e.ewhazp.preprocessing.CameraSourcePreview>
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/greencircle"
+            android:layout_above="@id/control"/>
+
+
+        <LinearLayout
+            android:id="@+id/control"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_toEndOf="@id/firePreview"
+            android:layout_toRightOf="@id/firePreview"
+            >
+
+            <Button
+                android:id="@+id/GotoInitpage"
+                android:background="#00462A"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/GotoInitpagetext"
+                android:fontFamily="@font/kyobo_handwriting_2019"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                android:visibility="visible"
+                tools:ignore="RtlHardcoded" />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

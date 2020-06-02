@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.google.firebase.samples.apps.mlkit">
+
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <application
+        android:icon="@mipmap/ddd_round"
+        android:label="D.D.D"
+        android:roundIcon="@mipmap/ddd_round"
+        android:theme="@style/MaterialTheme">
+        <activity android:name="com.e.ewhazp.facedetector.BTActivity" />
+
+        <service
+            android:name="com.e.ewhazp.facedetector.MonitorDrowsiness"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="TODO"
+            tools:ignore="ExportedService" />
+
+        <service
+            android:name="com.e.ewhazp.facedetector.BTService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="TODO"
+            tools:ignore="ExportedService" />
+
+        <activity android:name="com.e.ewhazp.facedetector.DetectingDrowsiness" />
+        <activity android:name="com.e.ewhazp.facedetector.SetclosedearActivity" />
+        <activity android:name="com.e.ewhazp.facedetector.SetopenedearActivity" />
+        <activity
+            android:name="com.e.ewhazp.ChooserActivity"
+            android:exported="true"
+            android:label="D.D.D">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

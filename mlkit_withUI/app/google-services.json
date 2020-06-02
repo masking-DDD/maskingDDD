@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "462005920042",
+    "firebase_url": "https://ewhazp.firebaseio.com",
+    "project_id": "ewhazp",
+    "storage_bucket": "ewhazp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:462005920042:android:ed500fabd36b375efb7e53",
+        "android_client_info": {
+          "package_name": "com.e.ewhazp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "462005920042-5upvnf2ga6r3grjf02g4itea74nfhi6b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDm-qHOSSvA0j7WSRkf3i2UetiFKM6e5xM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "462005920042-5upvnf2ga6r3grjf02g4itea74nfhi6b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,36 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="소리 설정">
+        <CheckBoxPreference
+            app:title="기본"            />
+        <CheckBoxPreference
+            app:title="벨소리"            />
+        <CheckBoxPreference
+            app:title="사이렌"            />
+        <CheckBoxPreference
+            app:title="군대 기상송"            />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="무작위로 전화하기">
+        <SwitchPreferenceCompat
+            app:key="sync"
+            app:title="기능 켜기" />
+        <Preference
+            app:key="selectContacts"
+            app:title="연락처 선택하기"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="정치 뉴스 읽어주기">
+        <SwitchPreferenceCompat
+            app:key="sync"
+            app:title="기능 켜기" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="환기 알람 사용하기">
+    <SwitchPreferenceCompat
+        app:key="sync"
+        app:title="기능 켜기" />
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

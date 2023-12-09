@@ -79,7 +79,7 @@ public final class SetopenedearActivity extends AppCompatActivity
             @Override
             public void onFinish() {
                 Log.e(TAG,"OpenedEAR/num = "+sum/num);
-                SetDrowsinessState.setOpenedEAR((sum/num)*0.9); //EAR 평균값에 오차범위 +-10%
+                SetDrowsinessState.setOpenedEAR((sum/num)*0.9); //EAR 평균값의 오차범위 +-10%
                 Log.e(TAG,"OpenedEAR set: "+SetDrowsinessState.openedEAR);
                 showpopup();
             }

@@ -20,13 +20,6 @@ public class PreferenceUtils {
         }
         String previewSizePrefKey = context.getString(R.string.pref_key_front_camera_preview_size);
         String pictureSizePrefKey = context.getString(R.string.pref_key_front_camera_picture_size);
-//        if (cameraId == CameraSource.CAMERA_FACING_BACK) {
-//            previewSizePrefKey = context.getString(R.string.pref_key_rear_camera_preview_size);
-//            pictureSizePrefKey = context.getString(R.string.pref_key_rear_camera_picture_size);
-//        } else {
-//            previewSizePrefKey = context.getString(R.string.pref_key_front_camera_preview_size);
-//            pictureSizePrefKey = context.getString(R.string.pref_key_front_camera_picture_size);
-//        }
 
         try {
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);

@@ -34,10 +34,7 @@ public final class ChooserActivity extends AppCompatActivity
     public Button setDrivebtn;
     public Button btbtn;
 
-
-    //class 목록
     private static final Class<?>[] CLASSES =
-            //메인화면에서 기능 선택할 때 액티비티 클래스들을 여기다가 넣으면 됨
             new Class<?>[]{
                     SetopenedearActivity.class,
                     DetectingDrowsiness.class,

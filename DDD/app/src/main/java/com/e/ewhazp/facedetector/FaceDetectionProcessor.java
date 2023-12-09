@@ -27,7 +27,7 @@ public class FaceDetectionProcessor extends VisionProcessorBase<List<FirebaseVis
     FaceDetectionProcessor() {
         FirebaseVisionFaceDetectorOptions options =
                 new FirebaseVisionFaceDetectorOptions.Builder()
-                        .setContourMode(FirebaseVisionFaceDetectorOptions.ALL_CONTOURS)//@@@@@@@
+                        .setContourMode(FirebaseVisionFaceDetectorOptions.ALL_CONTOURS)
                         .build();
 
         detector = FirebaseVision.getInstance().getVisionFaceDetector(options);

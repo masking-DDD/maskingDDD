@@ -53,7 +53,7 @@ public class BTActivity extends AppCompatActivity {
             if (!bt.isServiceAvailable()) {
                 Log.e(TAG,"onStart isBluetoothEnabled");
                 bt.setupService();
-                bt.startService(BluetoothState.DEVICE_OTHER); //DEVICE_ANDROID는 안드로이드 기기 끼리
+                bt.startService(BluetoothState.DEVICE_OTHER);
             }
         }
     }

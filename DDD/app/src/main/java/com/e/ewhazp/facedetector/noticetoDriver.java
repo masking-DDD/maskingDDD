@@ -27,7 +27,7 @@ class noticetoDriver {
     private static boolean isAlertRinging = false;
     private static ProgressDialog pd = DetectingDrowsiness.initpd;
     static LoadContactsAyscn lca = new LoadContactsAyscn();
-    //private static final int PERMISSIONS_REQUEST_READ_CONTACTS=100;
+
     //이 밑으로 기사 읽어오는 tts 기능을 위한 변수들
     static Async_TTS t = new Async_TTS();
     @SuppressLint("SimpleDateFormat")
@@ -127,7 +127,6 @@ class noticetoDriver {
         }
         @Override
         protected void onPostExecute(ArrayList<String> contacts) {
-            // TODO Auto-generated method stub
             super.onPostExecute(contacts);
             pd.cancel();
             final Intent callIntent = new Intent(Intent.ACTION_CALL);
@@ -136,13 +135,6 @@ class noticetoDriver {
             int rand = random.nextInt(contacts.size()-1)+1;
             callIntent.setData(Uri.parse("tel:" + contacts.get(rand)));
             if (ActivityCompat.checkSelfPermission(mcontext.getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
                 return;
             }
             mcontext.startActivity(callIntent);

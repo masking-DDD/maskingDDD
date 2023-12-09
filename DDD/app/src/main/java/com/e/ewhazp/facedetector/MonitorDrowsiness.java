@@ -31,8 +31,6 @@ public class MonitorDrowsiness extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
-        //timer.schedule(monitoringUser,0,30);//매 프레임마다 감지
-        Log.e(TAG,"MD start onStartCommand");
         return super.onStartCommand(intent, flags, startId );
     }
 
@@ -46,7 +44,7 @@ public class MonitorDrowsiness extends Service {
 
     public MonitorDrowsiness() {
         Log.e(TAG,"Service start");
-        timer.schedule(monitoringUser,0,30);//매 프레임마다 감지
+        timer.schedule(monitoringUser,0,30);
     }
 
     @Override
@@ -57,7 +55,6 @@ public class MonitorDrowsiness extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
         return null;
     }
 }

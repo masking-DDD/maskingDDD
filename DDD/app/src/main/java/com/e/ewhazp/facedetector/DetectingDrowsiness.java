@@ -42,7 +42,7 @@ import static com.e.ewhazp.facedetector.SetDrowsinessState.openedEAR;
 import static com.e.ewhazp.facedetector.noticetoDriver.plz;
 
 
-public class DetectingDrowsiness extends AppCompatActivity //가장 오래 사용될 화면
+public class DetectingDrowsiness extends AppCompatActivity
         implements ActivityCompat.OnRequestPermissionsResultCallback{
 
     private static final String TAG = "DetectingDrowsiness";

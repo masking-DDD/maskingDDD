@@ -17,7 +17,6 @@ class SetDrowsinessState{
     static int state = 1;
     private static int countnum = 0;
     private static boolean isRunning = false;
-    //static ProgressDialog pd=DetectingDrowsiness.initpd;
 
     static double EAR = 0;
     static double openedEAR = 0;
@@ -134,7 +133,7 @@ class SetDrowsinessState{
                     break;
             }
             isRunning = true;
-            count15s.start(); //15초 다시 셈, onFinish에서 알람 기능 실행중이 아니라고 설정, setState 호출시 다시 실행됨
+            count15s.start();
         }
     }
 
